@@ -1,3 +1,4 @@
+require 'pry'
 describe "Grocer" do
   let(:items) do
     [
@@ -101,8 +102,8 @@ describe "Grocer" do
         cheese = find_item('CHEESE')
         cart = Array.new(2, cheese)
         consolidated_cart = consolidate_cart(cart: cart)
-
         irrelevant = apply_coupons(cart: consolidated_cart, coupons: [find_coupon("AVOCADO")])
+
         expect(irrelevant["CHEESE"][:price]).to eq(6.50)
         expect(irrelevant["CHEESE"][:count]).to eq(2)  
         expect(irrelevant.keys).to_not include("AVOCADO W/COUPON")
@@ -143,6 +144,7 @@ describe "Grocer" do
         avocado = find_item("AVOCADO")
         coupon = find_coupon("AVOCADO")
         consol_cart = consolidate_cart(cart: [avocado, avocado, avocado, avocado, avocado])
+
         two_coupon_result = apply_coupons(cart: consol_cart, coupons: [coupon, coupon])
         expect(two_coupon_result["AVOCADO"][:count]).to eq(1)
         expect(two_coupon_result["AVOCADO W/COUPON"][:price]).to eq(5.00)
@@ -158,6 +160,7 @@ describe "Grocer" do
       consolidated_cart = consolidate_cart(cart: cart)
 
       result = apply_clearance(cart: consolidated_cart)
+
       expect(result["TEMPEH"][:price]).to eq(2.40)
     end
 
